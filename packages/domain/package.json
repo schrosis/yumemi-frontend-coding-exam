@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "check": "biome check .",
     "check:fix": "biome check --write .",
@@ -11,7 +12,8 @@
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
     "typecheck": "tsc",
-    "test": "vitest"
+    "test": "vitest",
+    "test:coverage": "vitest --coverage"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +21,7 @@
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@frontend-coding-exam/common-config": "workspace:^",
+    "@vitest/coverage-v8": "^2.1.8",
     "vitest": "^2.1.8"
   },
   "dependencies": {

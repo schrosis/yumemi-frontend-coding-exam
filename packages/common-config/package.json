@@ -3,13 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "check": "biome check",
     "check:fix": "biome check --write",
     "format": "biome format",
     "format:fix": "biome format --write",
     "lint": "biome lint",
-    "lint:fix": "biome lint --write"
+    "lint:fix": "biome lint --write",
+    "typecheck": "tsc"
   },
   "keywords": [],
   "author": "",
