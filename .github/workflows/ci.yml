@@ -64,9 +64,11 @@ jobs:
         run: pnpm run ${{ matrix.package }} typecheck
 
       - name: Test
+        if: ${{ matrix.package != 'common-config' }}
         run: pnpm run ${{ matrix.package }} test:coverage --run
 
       - name: Report Coverage
+        if: ${{ matrix.package != 'common-config' }}
         uses: davelosert/vitest-coverage-report-action@v2
         with:
           working-directory: packages/${{ matrix.package }}
