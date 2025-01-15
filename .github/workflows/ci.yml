@@ -1,0 +1,69 @@
+name: CI
+
+on:
+  pull_request:
+
+jobs:
+  # 変更があるパッケージを抽出する
+  generate-matrix:
+    name: Generate Matrix
+    runs-on: ubuntu-latest
+    outputs:
+      packages: ${{ steps.changed_packages.outputs.packages }}
+      empty: ${{ steps.changed_packages.outputs.empty }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Find Changed Packages
+        id: changed_packages
+        uses: AlexShukel/get-changed-workspaces-action@v2.0.0
+        with:
+          workspaces: packages/*
+
+      - name: Extract short package names
+        id: chort_package_names
+        run: |
+          packages=$(echo '${{ steps.changed_packages.outputs.packages }}' | jq -c 'map(.name | sub("^@frontend-coding-exam/"; ""))')
+          echo "packages=${packages}" >> $GITHUB_OUTPUT
+
+  ci:
+    name: CI
+    needs: [generate-matrix]
+    # if: ${{ !fromJson(needs.generate-matrix.outputs.empty) }}
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+
+    strategy:
+      fail-fast: false
+      matrix:
+        package: [common-config, domain]
+        # package: ${{ fromJson(needs.generate-matrix.outputs.packages) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Check Format and Lint
+        run: pnpm run ${{ matrix.package }} check
+
+      - name: Type Check
+        run: pnpm run ${{ matrix.package }} typecheck
+
+      - name: Test and Report Coverage
+        uses: davelosert/vitest-coverage-report-action@v2
+        with:
+          working-directory: packages/{{ matrix.package }}

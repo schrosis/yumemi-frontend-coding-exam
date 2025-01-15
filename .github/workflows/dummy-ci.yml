@@ -1,0 +1,20 @@
+# NOTE
+# 同じ名前のジョブが複数ある場合、いずれかが失敗すると失敗扱いになる
+# 変更があるパッケージのみ CI を実行したいが、すべてのパッケージの CI の成功を必須としているため
+# 必ず成功するダミーのジョブを実行しておく
+
+name: Dummy CI
+
+on:
+  pull_request:
+
+jobs:
+  ci:
+    name: CI
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package: [common-config, domain]
+    steps:
+      - name: Success
+        run: echo 'dummy job was success'
