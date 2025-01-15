@@ -30,7 +30,7 @@ jobs:
   ci:
     name: CI
     needs: [generate-matrix]
-    # if: ${{ !fromJson(needs.generate-matrix.outputs.empty) }}
+    if: ${{ !fromJson(needs.generate-matrix.outputs.empty) }}
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
@@ -39,8 +39,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        package: [common-config, domain]
-        # package: ${{ fromJson(needs.generate-matrix.outputs.packages) }}
+        package: ${{ fromJson(needs.generate-matrix.outputs.packages) }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
