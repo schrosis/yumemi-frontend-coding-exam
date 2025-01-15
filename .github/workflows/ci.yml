@@ -63,7 +63,10 @@ jobs:
       - name: Type Check
         run: pnpm run ${{ matrix.package }} typecheck
 
-      - name: Test and Report Coverage
+      - name: Test
+        run: pnpm run ${{ matrix.package }} test:coverage --run
+
+      - name: Report Coverage
         uses: davelosert/vitest-coverage-report-action@v2
         with:
           working-directory: packages/${{ matrix.package }}
