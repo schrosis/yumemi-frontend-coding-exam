@@ -66,4 +66,4 @@ jobs:
       - name: Test and Report Coverage
         uses: davelosert/vitest-coverage-report-action@v2
         with:
-          working-directory: packages/{{ matrix.package }}
+          working-directory: packages/${{ matrix.package }}
