@@ -5,7 +5,8 @@
   "packageManager": "pnpm@10.0.0",
   "main": "index.js",
   "scripts": {
-    "common-config": "pnpm run --filter @frontend-coding-exam/common-config"
+    "common-config": "pnpm run --filter @frontend-coding-exam/common-config",
+    "domain": "pnpm run --filter @frontend-coding-exam/domain"
   },
   "keywords": [],
   "author": "",
