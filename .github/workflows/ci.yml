@@ -9,7 +9,7 @@ jobs:
     name: Generate Matrix
     runs-on: ubuntu-latest
     outputs:
-      packages: ${{ steps.changed_packages.outputs.packages }}
+      packages: ${{ steps.short_package_names.outputs.packages }}
       empty: ${{ steps.changed_packages.outputs.empty }}
     steps:
       - name: Checkout
@@ -22,7 +22,7 @@ jobs:
           workspaces: packages/*
 
       - name: Extract short package names
-        id: chort_package_names
+        id: short_package_names
         run: |
           packages=$(echo '${{ steps.changed_packages.outputs.packages }}' | jq -c 'map(.name | sub("^@frontend-coding-exam/"; ""))')
           echo "packages=${packages}" >> $GITHUB_OUTPUT
