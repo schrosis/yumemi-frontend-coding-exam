@@ -15,5 +15,8 @@
     "@commitlint/config-conventional": "^19.6.0",
     "commitlint": "^19.6.1",
     "lefthook": "^1.10.4"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["bcrypt"]
   }
 }
