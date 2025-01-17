@@ -1,6 +1,6 @@
-import { type Result, type ResultAsync, ok } from "neverthrow";
+import { type Result, type ResultAsync, err, ok } from "neverthrow";
 import { Aggregate, ValueObject } from "types-ddd";
-import type { DomainError } from "./error";
+import { DomainError } from "./error";
 
 export interface PrefectureRepository {
   all(): ResultAsync<Prefecture[], DomainError>;
@@ -27,6 +27,12 @@ export class PrefectureId extends ValueObject<number> {
   }
 
   static of(value: number): Result<PrefectureId, DomainError> {
+    if (value < 1 || value > 47) {
+      return err(
+        new DomainError("都道府県IDは1から47の間でなければいけません。"),
+      );
+    }
+
     return ok(new PrefectureId(value));
   }
 }
@@ -37,6 +43,10 @@ export class PrefectureName extends ValueObject<string> {
   }
 
   static of(value: string): Result<PrefectureName, DomainError> {
+    if (value.length === 0) {
+      return err(new DomainError("都道府県名は空であってはいけません。"));
+    }
+
     return ok(new PrefectureName(value));
   }
 }
