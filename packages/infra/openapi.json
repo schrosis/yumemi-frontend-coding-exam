@@ -1,0 +1,176 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "ゆめみフロントエンドコーディング試験 API",
+    "description": "## API 概要\n\nゆめみフロントエンドコーディング試験用の API です。\n\n本 API は、内閣府 地方創生推進室が提供している [RESAS（地域経済分析システム）](https://resas.go.jp/) のデータを加工して作成しています。\n\n※当該データは 2024 年 10 月時点のものであり、最新性を保証するものではありません。\n\n## API 詳細仕様\n\n### ◎ エンドポイントについて\n\n本 API のエンドポイントは `https://yumemi-frontend-engineer-codecheck-api.vercel.app` です。\n\n### ◎ API キーの設定について\n\n本 API へアクセスするには、API キーをリクエストヘッダー `X-API-KEY` に設定する必要があります。\n\nリクエストヘッダーに有効な API キーが設定されていない場合、リクエストしたデータは返却されず、`403 Forbidden` のエラーが返されます。\n\n※ 本 API は運用の簡素化を図るため、すべての応募者に共通の API キーを提供しております。\n\n| リクエストヘッダー |        API キー         |\n| :----------------: | :---------------------: |\n|     X-API-KEY      | 8FzX5qLmN3wRtKjH7vCyP9bGdEaU4sYpT6cMfZnJ |\n\n### ◎ レスポンスヘッダーの Content-Type について\n\nレスポンスヘッダーの Content-Type は `application/json; charset=UTF-8` です。\n\n### ◎ エラーについて\n\n#### 400 Bad Request\n\n本 API に必要なパラメータが正しく設定されていない場合に発生します。\n\n必須パラメータの設定が漏れていないか、正しいフォーマットで設定できているか、等をご確認ください。\n\n#### 403 Forbidden\n\nリクエストヘッダーに API キーが存在しないか、指定された API キーが無効な場合に発生します。\n\nAPI キーが正しく設定されているかご確認ください。\n\n#### 404 Not Found\n\n指定された URL に対応する API が存在しない場合に発生します。\n\nAPI のアドレスが正しいかをご確認ください。\n\n#### 500 Internal Server Error\n\nAPI サーバーに問題が発生した場合に返されます。\n\nしばらく時間をおいて再度お試しください。問題が解消しない場合は、お手数ですが弊社までお問い合わせください。\n\n## 出典\n\n- RESAS（地域経済分析システム）のデータを加工して作成\n- 人口構成データ：\n  - 総務省「国勢調査」\n  - 厚生労働省「人口動態調査」\n  - 国立社会保障・人口問題研究所「日本の地域別将来推計人口」\n\n[RESAS 関連サービス利用規約](https://opendata.resas-portal.go.jp/terms.html)\n",
+    "license": {
+      "name": "MIT License",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://yumemi-frontend-engineer-codecheck-api.vercel.app"
+    }
+  ],
+  "security": [
+    {
+      "apiKey": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "apiKey": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-KEY"
+      }
+    },
+    "schemas": {
+      "Prefecture": {
+        "type": "object",
+        "properties": {
+          "prefCode": {
+            "type": "integer",
+            "description": "都道府県コード",
+            "example": 1
+          },
+          "prefName": {
+            "type": "string",
+            "description": "都道府県名",
+            "example": "北海道"
+          }
+        },
+        "required": ["prefCode", "prefName"]
+      },
+      "PrefecturesResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "nullable": true
+          },
+          "result": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Prefecture"
+            }
+          }
+        },
+        "required": ["message", "result"]
+      },
+      "PopulationCompositionPerYear": {
+        "type": "object",
+        "properties": {
+          "boundaryYear": {
+            "type": "integer",
+            "description": "実績値と推計値の区切り年",
+            "example": 2020
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "description": "ラベル",
+                  "example": "年少人口"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "year": {
+                        "type": "integer",
+                        "description": "年",
+                        "example": 1960
+                      },
+                      "value": {
+                        "type": "integer",
+                        "description": "人口",
+                        "example": 1681479
+                      },
+                      "rate": {
+                        "type": "number",
+                        "description": "割合（label が総人口の場合は存在しません）",
+                        "example": 33.37
+                      }
+                    },
+                    "required": ["year", "value"]
+                  }
+                }
+              },
+              "required": ["label", "data"]
+            }
+          }
+        },
+        "required": ["boundaryYear", "data"]
+      },
+      "PopulationCompositionPerYearResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "nullable": true
+          },
+          "result": {
+            "$ref": "#/components/schemas/PopulationCompositionPerYear"
+          }
+        },
+        "required": ["message", "result"]
+      }
+    },
+    "parameters": {}
+  },
+  "paths": {
+    "/api/v1/prefectures": {
+      "get": {
+        "description": "都道府県に関する一覧データを返します。",
+        "tags": ["都道府県一覧"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrefecturesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/population/composition/perYear": {
+      "get": {
+        "description": "地域単位、年単位の年齢構成のデータを返します。",
+        "tags": ["人口構成"],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "description": "都道府県コード",
+              "example": "1"
+            },
+            "required": true,
+            "name": "prefCode",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PopulationCompositionPerYearResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

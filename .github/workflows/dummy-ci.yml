@@ -14,7 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        package: [common-config, domain]
+        package: [common-config, domain, infra]
     steps:
       - name: Success
         run: echo 'dummy job was success'
+

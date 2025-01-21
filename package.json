@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "common-config": "pnpm run --filter @frontend-coding-exam/common-config",
-    "domain": "pnpm run --filter @frontend-coding-exam/domain"
+    "domain": "pnpm run --filter @frontend-coding-exam/domain",
+    "infra": "pnpm run --filter @frontend-coding-exam/infra"
   },
   "keywords": [],
   "author": "",
