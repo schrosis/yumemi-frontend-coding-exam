@@ -1,9 +1,9 @@
-import { type Result, type ResultAsync, err, ok } from "neverthrow";
+import { type Result, err, ok } from "neverthrow";
 import { Aggregate, ValueObject } from "types-ddd";
 import { DomainError } from "./error";
 
 export interface PrefectureRepository {
-  all(): ResultAsync<Prefecture[], DomainError>;
+  all(): Promise<Result<Prefecture[], DomainError>>;
 }
 
 type PrefectureProps = {

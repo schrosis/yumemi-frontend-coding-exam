@@ -1,4 +1,4 @@
-import { type Result, type ResultAsync, err, ok } from "neverthrow";
+import { type Result, err, ok } from "neverthrow";
 import { Aggregate, Entity, ValueObject } from "types-ddd";
 import { DomainError } from "./error";
 import type { PrefectureId } from "./prefecture";
@@ -6,7 +6,7 @@ import type { PrefectureId } from "./prefecture";
 export interface PopulationCompositionRepository {
   findByPrefectureId(
     prefectureId: PrefectureId,
-  ): ResultAsync<PopulationComposition | null, DomainError>;
+  ): Promise<Result<PopulationComposition | null, DomainError>>;
 }
 
 type PopulationCompositionProps = {
