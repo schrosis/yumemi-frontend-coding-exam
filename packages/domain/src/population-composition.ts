@@ -6,7 +6,7 @@ import type { PrefectureId } from "./prefecture";
 export interface PopulationCompositionRepository {
   findByPrefectureId(
     prefectureId: PrefectureId,
-  ): Promise<Result<PopulationComposition | null, DomainError>>;
+  ): Promise<Result<PopulationComposition, DomainError>>;
 }
 
 type PopulationCompositionProps = {
