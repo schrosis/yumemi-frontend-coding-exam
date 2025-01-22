@@ -7,7 +7,8 @@
   "scripts": {
     "common-config": "pnpm run --filter @frontend-coding-exam/common-config",
     "domain": "pnpm run --filter @frontend-coding-exam/domain",
-    "infra": "pnpm run --filter @frontend-coding-exam/infra"
+    "infra": "pnpm run --filter @frontend-coding-exam/infra",
+    "app": "pnpm run --filter @frontend-coding-exam/app"
   },
   "keywords": [],
   "author": "",
