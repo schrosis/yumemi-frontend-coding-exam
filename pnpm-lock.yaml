@@ -18,6 +18,31 @@ importers:
         specifier: ^1.10.4
         version: 1.10.7
 
+  packages/app:
+    dependencies:
+      '@frontend-coding-exam/domain':
+        specifier: workspace:^
+        version: link:../domain
+      neverthrow:
+        specifier: ^8.1.1
+        version: 8.1.1
+      typescript:
+        specifier: ^5.7.3
+        version: 5.7.3
+    devDependencies:
+      '@biomejs/biome':
+        specifier: ^1.9.4
+        version: 1.9.4
+      '@frontend-coding-exam/common-config':
+        specifier: workspace:^
+        version: link:../common-config
+      '@vitest/coverage-v8':
+        specifier: ^2.1.8
+        version: 2.1.8(vitest@2.1.8(@types/node@22.10.7)(msw@2.7.0(@types/node@22.10.7)(typescript@5.7.3)))
+      vitest:
+        specifier: ^2.1.8
+        version: 2.1.8(@types/node@22.10.7)(msw@2.7.0(@types/node@22.10.7)(typescript@5.7.3))
+
   packages/common-config:
     dependencies:
       '@biomejs/biome':
@@ -60,6 +85,9 @@ importers:
 
   packages/infra:
     dependencies:
+      '@frontend-coding-exam/domain':
+        specifier: workspace:^
+        version: link:../domain
       '@zodios/core':
         specifier: ^10.9.6
         version: 10.9.6(axios@1.7.9)(zod@3.24.1)
@@ -85,9 +113,6 @@ importers:
       '@frontend-coding-exam/common-config':
         specifier: workspace:^
         version: link:../common-config
-      '@frontend-coding-exam/domain':
-        specifier: workspace:^
-        version: link:../domain
       '@vitest/coverage-v8':
         specifier: ^2.1.8
         version: 2.1.8(vitest@2.1.8(@types/node@22.10.7)(msw@2.7.0(@types/node@22.10.7)(typescript@5.7.3)))

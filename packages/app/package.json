@@ -1,5 +1,5 @@
 {
-  "name": "@frontend-coding-exam/infra",
+  "name": "@frontend-coding-exam/app",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.ts",
@@ -13,8 +13,7 @@
     "lint:fix": "biome lint --write .",
     "typecheck": "tsc",
     "test": "vitest",
-    "test:coverage": "vitest --coverage",
-    "generate:api-client": "openapi-zod-client openapi.json -o src/api/client.ts"
+    "test:coverage": "vitest --coverage"
   },
   "keywords": [],
   "author": "",
@@ -23,17 +22,11 @@
     "@biomejs/biome": "^1.9.4",
     "@frontend-coding-exam/common-config": "workspace:^",
     "@vitest/coverage-v8": "^2.1.8",
-    "msw": "^2.7.0",
-    "openapi-zod-client": "^1.18.2",
     "vitest": "^2.1.8"
   },
   "dependencies": {
     "@frontend-coding-exam/domain": "workspace:^",
-    "@zodios/core": "^10.9.6",
-    "axios": "^1.7.9",
-    "axios-rate-limit": "^1.4.0",
     "neverthrow": "^8.1.1",
-    "typescript": "^5.7.3",
-    "zod": "^3.24.1"
+    "typescript": "^5.7.3"
   }
 }

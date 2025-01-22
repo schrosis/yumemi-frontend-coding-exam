@@ -1,0 +1,3 @@
+{
+  "extends": ["@frontend-coding-exam/common-config/tsconfig/tsconfig.json"]
+}
