@@ -44,6 +44,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vanilla-extract/vite-plugin": "^4.0.19",
     "@vanilla-extract/webpack-plugin": "^2.3.16",
     "@vitejs/plugin-react": "^4.3.4",
     "@vitest/coverage-v8": "^2.1.8",
